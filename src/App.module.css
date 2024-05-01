@@ -1,0 +1,32 @@
+.layout {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  box-sizing: border-box;
+  column-gap: 4px;
+  padding: 4px 4px;
+  overflow: hidden;
+}
+
+.app {
+  width: 100%;
+  min-width: 320px;
+  max-width: 480px; 
+
+  .title {
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center;
+    margin: 0;
+    line-height: 20px;
+  }
+
+  .phone {
+    height: calc(100% - 20px);
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 16px;
+    padding: 8px;
+  }
+}
