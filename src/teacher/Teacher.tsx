@@ -1,6 +1,7 @@
+import { createMemoryRouter, RouterProvider } from "react-router-dom";
+import { TeacherCourse } from "./pages/Course";
 import { TeacherLogin } from "./pages/Login";
 import { TeacherMain } from "./pages/Main";
-import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
 const router = createMemoryRouter([
   {
@@ -10,6 +11,10 @@ const router = createMemoryRouter([
   {
     path: "/main",
     element: <TeacherMain />,
+  },
+  {
+    path: "/course/:courseId",
+    element: <TeacherCourse />,
   },
 ]);
 

@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { DefaultTeacher } from "../../backend/users";
 import { Login } from "../../common/components";
 
 export const TeacherLogin = () => {
@@ -13,8 +14,8 @@ export const TeacherLogin = () => {
       <div>Teacher login</div>
       <Login
         formId="teacher"
-        username="teacher"
-        password="teacher"
+        username={DefaultTeacher.username}
+        password={DefaultTeacher.password}
         onSuccess={onSuccess}
       />
     </>

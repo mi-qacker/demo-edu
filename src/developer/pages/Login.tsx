@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { DefaultDeveloper } from "../../backend/users";
 import { Login } from "../../common/components";
 
 export const DeveloperLogin = () => {
@@ -13,8 +14,8 @@ export const DeveloperLogin = () => {
       <div>Developer login</div>
       <Login
         formId="developer"
-        username="developer"
-        password="developer"
+        username={DefaultDeveloper.username}
+        password={DefaultDeveloper.password}
         onSuccess={onSuccess}
       />
     </>
