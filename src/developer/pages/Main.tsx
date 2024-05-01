@@ -6,7 +6,7 @@ import { DefaultDeveloper } from "../../backend/users";
 
 const developer = DefaultDeveloper;
 
-export const DeveloperMain = () => {
+const DeveloperMain = () => {
   const [courses] = useState(() => getCoursesByUser(developer));
 
   const renderListItem = useCallback(
@@ -32,3 +32,5 @@ export const DeveloperMain = () => {
     />
   );
 };
+
+export default DeveloperMain;

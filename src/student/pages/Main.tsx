@@ -10,7 +10,7 @@ import { DefaultStudent } from "../../backend/users";
 
 const student = DefaultStudent;
 
-export const StudentMain = () => {
+const StudentMain = () => {
   const [courses] = useState(() => getCoursesByUser(student));
 
   const onClickButton = useCallback((course: Course) => {
@@ -44,3 +44,5 @@ export const StudentMain = () => {
     />
   );
 };
+
+export default StudentMain;

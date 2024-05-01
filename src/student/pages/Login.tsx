@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { DefaultStudent } from "../../backend/users";
 import { Login } from "../../common/components";
 
-export const StudentLogin = () => {
+const StudentLogin = () => {
   const navigate = useNavigate();
   const onSuccess = useCallback(() => {
     navigate("/main");
@@ -21,3 +21,5 @@ export const StudentLogin = () => {
     </>
   );
 };
+
+export default StudentLogin;

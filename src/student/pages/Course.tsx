@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getCourseById } from "../../backend/courses";
 
-export const StudentCourse = () => {
+const StudentCourse = () => {
   const { courseId } = useParams();
   const [course] = useState(() => getCourseById(Number(courseId)));
 
@@ -14,3 +14,5 @@ export const StudentCourse = () => {
     </>
   );
 };
+
+export default StudentCourse;

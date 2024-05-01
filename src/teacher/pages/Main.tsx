@@ -10,7 +10,7 @@ import { DefaultTeacher } from "../../backend/users";
 
 const teacher = DefaultTeacher;
 
-export const TeacherMain = () => {
+const TeacherMain = () => {
   const [courses] = useState(() => getCoursesByUser(teacher));
 
   const onClickButton = useCallback((course: Course) => {
@@ -46,3 +46,5 @@ export const TeacherMain = () => {
     />
   );
 };
+
+export default TeacherMain;

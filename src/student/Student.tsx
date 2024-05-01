@@ -1,7 +1,9 @@
+import { lazy, Suspense } from "react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
-import { StudentCourse } from "./pages/Course";
-import { StudentLogin } from "./pages/Login";
-import { StudentMain } from "./pages/Main";
+
+const StudentLogin = lazy(() => import("./pages/Login"));
+const StudentMain = lazy(() => import("./pages/Main"));
+const StudentCourse = lazy(() => import("./pages/Course"));
 
 const router = createMemoryRouter([
   {
@@ -19,7 +21,11 @@ const router = createMemoryRouter([
 ]);
 
 const Student = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
 
 export { Student };
