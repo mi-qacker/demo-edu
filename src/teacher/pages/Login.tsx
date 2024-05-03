@@ -1,11 +1,15 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import logger, { LogType } from "../../backend/logger";
 import { DefaultTeacher } from "../../backend/users";
 import { Login } from "../../common/components";
+
+const teacher = DefaultTeacher;
 
 const TeacherLogin = () => {
   const navigate = useNavigate();
   const onSuccess = useCallback(() => {
+    logger.newLog(teacher.id, LogType.Login);
     navigate("/main");
   }, [navigate]);
 
@@ -14,8 +18,8 @@ const TeacherLogin = () => {
       <div>Teacher login</div>
       <Login
         formId="teacher"
-        username={DefaultTeacher.username}
-        password={DefaultTeacher.password}
+        username={teacher.username}
+        password={teacher.password}
         onSuccess={onSuccess}
       />
     </>

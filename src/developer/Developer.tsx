@@ -4,6 +4,7 @@ import { createMemoryRouter, RouterProvider } from "react-router-dom";
 const DeveloperLogin = lazy(() => import("./pages/Login"));
 const DeveloperMain = lazy(() => import("./pages/Main"));
 const DeveloperCourse = lazy(() => import("./pages/Course"));
+const DeveloperUser = lazy(() => import("./pages/User"));
 
 const router = createMemoryRouter([
   {
@@ -17,6 +18,10 @@ const router = createMemoryRouter([
   {
     path: "/course/:courseId",
     element: <DeveloperCourse />,
+  },
+  {
+    path: "/user/:userId",
+    element: <DeveloperUser />,
   },
 ]);
 
