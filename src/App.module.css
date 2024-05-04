@@ -12,7 +12,7 @@
 .app {
   width: 100%;
   min-width: 320px;
-  max-width: 480px; 
+  max-width: 480px;
 
   .title {
     text-decoration: none;
@@ -29,4 +29,10 @@
     border-radius: 16px;
     padding: 8px;
   }
+}
+
+.source-link {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
