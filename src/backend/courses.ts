@@ -1,8 +1,14 @@
+import {
+  CourseMaterial,
+  LINEAR_COURSE_MATERIAL,
+  SQUARE_COURSE_MATERIAL,
+} from "./courses-material";
 import { DefaultStudent, DefaultTeacher, User, UserType } from "./users";
 
 export type Course = {
   id: number;
   name: string;
+  material: CourseMaterial;
   students: User[];
   teachers: User[];
 };
@@ -11,12 +17,14 @@ export const DefaultCurses: Course[] = [
   {
     id: 0,
     name: "Решение квадратного уравнения в общем виде",
+    material: SQUARE_COURSE_MATERIAL,
     students: [DefaultStudent],
     teachers: [DefaultTeacher],
   },
   {
     id: 1,
     name: "Решение линейного уравнения в общем виде",
+    material: LINEAR_COURSE_MATERIAL,
     students: [],
     teachers: [],
   },
