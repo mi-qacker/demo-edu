@@ -1,10 +1,8 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { student } from "..";
 import logger, { LogType } from "../../backend/logger";
-import { DefaultStudent } from "../../backend/users";
 import { Login } from "../../common/components";
-
-const student = DefaultStudent;
 
 const StudentLogin = () => {
   const navigate = useNavigate();

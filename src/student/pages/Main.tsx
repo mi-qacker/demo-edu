@@ -1,22 +1,24 @@
 import { Button, List, Typography } from "antd";
 import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
+import { student } from "..";
 import {
   Course,
   getCoursesByUser,
   registerUserOnCourse,
 } from "../../backend/courses";
-import { DefaultStudent } from "../../backend/users";
-
-const student = DefaultStudent;
+import logger, { LogType } from "../../backend/logger";
 
 const StudentMain = () => {
   const [courses] = useState(() => getCoursesByUser(student));
 
   const onClickButton = useCallback((course: Course) => {
+    const courseId = course.id;
     if (!course.students.includes(student)) {
-      registerUserOnCourse(student, course.id);
+      registerUserOnCourse(student, courseId);
+      logger.newLog(student.id, LogType.CourseRegister, { courseId });
     }
+    logger.newLog(student.id, LogType.CourseOpen, { courseId });
   }, []);
 
   const renderListItem = useCallback(
