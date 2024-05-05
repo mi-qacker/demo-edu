@@ -3,8 +3,10 @@ import CheckCircleFilled from "@ant-design/icons/lib/icons/CheckCircleFilled";
 import { Button, Radio, RadioChangeEvent, Space, Typography } from "antd";
 import { useCallback, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { student } from "..";
 import { getCourseById } from "../../backend/courses";
 import { TestQuestions } from "../../backend/courses-material";
+import logger, { LogType } from "../../backend/logger";
 
 const StudentCourse = () => {
   const { courseId } = useParams();
@@ -13,9 +15,22 @@ const StudentCourse = () => {
   const [score, setScore] = useState<number | null>(null);
   const [showTest, setShowTest] = useState(false);
 
+  const goBackHandler = useCallback(() => {
+    if (courseId) {
+      logger.newLog(student.id, LogType.CourseClose, {
+        courseId: Number(courseId),
+      });
+    }
+  }, [courseId]);
+
   const openTestClickHandler = useCallback(() => {
+    if (courseId) {
+      logger.newLog(student.id, LogType.TestStart, {
+        courseId: Number(courseId),
+      });
+    }
     setShowTest(true);
-  }, []);
+  }, [courseId]);
 
   const onAnswerChange = useCallback(
     (index: number, answer: number) => {
@@ -37,12 +52,19 @@ const StudentCourse = () => {
       (answer, index) => answer === correctAnswers[index]
     ).length;
     setScore(userScore);
+
+    logger.newLog(student.id, LogType.TestFinish, {
+      courseId: course.id,
+      testScore: userScore,
+    });
   }, [userAnswers, course]);
 
   return (
     <>
       <Typography.Title level={3}>{course?.name}</Typography.Title>
-      <Link to="/main">Go back</Link>
+      <Link to="/main" onClick={goBackHandler}>
+        Go back
+      </Link>
       {course && (
         <div>
           <Typography.Title level={4}>Материалы лекции:</Typography.Title>

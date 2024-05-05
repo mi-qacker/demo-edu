@@ -1,0 +1,9 @@
+.log-item {
+  display: inline-flex;
+  column-gap: 4px;
+  padding: 4px 12px;
+}
+
+.log-date {
+  font-weight: bold;
+}
