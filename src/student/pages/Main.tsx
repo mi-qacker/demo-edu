@@ -25,11 +25,11 @@ const StudentMain = () => {
     (course: Course) => (
       <List.Item>
         <Typography.Text>{course.name}</Typography.Text>{" "}
-        <Button type="link" onClick={() => onClickButton(course)}>
-          <Link to={`/course/${course.id}`}>
+        <Link to={`/course/${course.id}`}>
+          <Button type="link" onClick={() => onClickButton(course)}>
             {course.students.includes(student) ? "Войти" : "Записаться"}
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </List.Item>
     ),
     [onClickButton]

@@ -24,8 +24,13 @@ const StudentCourse = () => {
   }, [courseId]);
 
   const openTestClickHandler = useCallback(() => {
+    if (courseId) {
+      logger.newLog(student.id, LogType.TestStart, {
+        courseId: Number(courseId),
+      });
+    }
     setShowTest(true);
-  }, []);
+  }, [courseId]);
 
   const onAnswerChange = useCallback(
     (index: number, answer: number) => {
@@ -47,6 +52,11 @@ const StudentCourse = () => {
       (answer, index) => answer === correctAnswers[index]
     ).length;
     setScore(userScore);
+
+    logger.newLog(student.id, LogType.TestFinish, {
+      courseId: course.id,
+      testScore: userScore,
+    });
   }, [userAnswers, course]);
 
   return (

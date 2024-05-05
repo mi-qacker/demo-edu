@@ -5,27 +5,46 @@ export enum LogType {
   CourseOpen,
   CourseClose,
   CourseRegister,
+  TestStart,
+  TestFinish,
 }
 
 const getActionByLogType = (
   type: LogType,
-  options?: Pick<Log, "courseId">
+  options?: Log["options"]
 ): string => {
   const basicAction: Record<LogType, string> = {
     [LogType.Login]: "User has logged in",
     [LogType.CourseOpen]: "User opened the course:",
     [LogType.CourseClose]: "User has closed the course:",
     [LogType.CourseRegister]: "User has registered the course:",
+    [LogType.TestStart]: "User has started test on the course:",
+    [LogType.TestFinish]: "User has finished test on the course:",
   };
 
-  if (
-    [LogType.CourseRegister, LogType.CourseOpen, LogType.CourseClose].includes(
-      type
-    ) &&
-    options?.courseId !== undefined
-  ) {
+  const actionsWithCourse: boolean = [
+    LogType.CourseRegister,
+    LogType.CourseOpen,
+    LogType.CourseClose,
+    LogType.TestStart,
+  ].includes(type);
+
+  if (actionsWithCourse) {
+    if (options?.courseId === undefined) {
+      throw new Error("For this log type required courseId option");
+    }
     const course = getCourseById(options.courseId);
     return `${basicAction[type]} "${course?.name}"`;
+  }
+
+  if (type === LogType.TestFinish) {
+    if (options?.courseId === undefined || options?.testScore === undefined) {
+      throw new Error("For this log type required courseId, testScore option");
+    }
+    const { courseId, testScore } = options;
+    const course = getCourseById(courseId)!;
+    const questionCount = course.material.test.questions.length;
+    return `${basicAction[type]} "${course?.name}". Результат: ${testScore}/${questionCount}`;
   }
 
   return basicAction[type];
@@ -36,7 +55,10 @@ export type Log = {
   type: LogType;
   action: string;
   date: Date;
-  courseId?: number;
+  options?: {
+    courseId?: number;
+    testScore?: number;
+  };
 };
 
 const logs: Log[] = [];
@@ -45,20 +67,13 @@ const logger = {
   getLogsByUser(userId: number): Log[] {
     return logs.filter((log) => log.userId === userId);
   },
-  newLog(userId: number, type: LogType, options?: Pick<Log, "courseId">) {
+  newLog(userId: number, type: LogType, options?: Log["options"]) {
     const newLog: Log = {
       userId,
       type,
       action: getActionByLogType(type, options),
       date: new Date(),
     };
-
-    if (type === LogType.CourseRegister) {
-      if (options?.courseId === undefined) {
-        throw new Error("For LogType.CourseRegister required courseId option");
-      }
-      newLog.courseId = options.courseId;
-    }
 
     logs.push(newLog);
     callAllListeners();
