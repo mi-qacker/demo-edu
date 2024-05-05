@@ -24,12 +24,14 @@ const DeveloperUser = () => {
 
   const renderLogItem = useCallback((item: Log) => {
     return (
-      <div className={s["log-item"]}>
-        <span className={s["log-date"]}>
-          {item.date.toLocaleDateString()} {item.date.toLocaleTimeString()}
-        </span>
-        <span>{item.action}</span>
-      </div>
+      <List.Item>
+        <div className={s["log-item"]}>
+          <span className={s["log-date"]}>
+            {item.date.toLocaleDateString()} {item.date.toLocaleTimeString()}
+          </span>
+          <span>{item.action}</span>
+        </div>
+      </List.Item>
     );
   }, []);
 
