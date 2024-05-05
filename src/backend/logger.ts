@@ -64,7 +64,12 @@ export type Log = {
 const logs: Log[] = [];
 
 const logger = {
-  getLogsByUser(userId: number): Log[] {
+  getLogsByUser(userId: number, courseId?: number): Log[] {
+    if (courseId !== undefined) {
+      return logs.filter(
+        (log) => log.userId === userId && log.options?.courseId == courseId
+      );
+    }
     return logs.filter((log) => log.userId === userId);
   },
   newLog(userId: number, type: LogType, options?: Log["options"]) {
@@ -73,6 +78,7 @@ const logger = {
       type,
       action: getActionByLogType(type, options),
       date: new Date(),
+      options,
     };
 
     logs.push(newLog);
