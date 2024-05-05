@@ -1,45 +1,64 @@
 import GithubFilled from "@ant-design/icons/GithubFilled";
-import { Button } from "antd";
+import { Button, Layout, Tabs, TabsProps } from "antd";
 import s from "./App.module.css";
 import { Developer } from "./developer";
 import { Student } from "./student";
 import { Teacher } from "./teacher";
+import UserOutlined from "@ant-design/icons/lib/icons/UserOutlined";
+
+const tabItems: TabsProps["items"] = [
+  {
+    key: "teacher",
+    label: "Teacher",
+    children: (
+      <div className={s.app}>
+        <Teacher />
+      </div>
+    ),
+    icon: <UserOutlined />,
+  },
+  {
+    key: "student",
+    label: "Student",
+    children: (
+      <div className={s.app}>
+        <Student />
+      </div>
+    ),
+    icon: <UserOutlined />,
+  },
+  {
+    key: "developer",
+    label: "Developer",
+    children: (
+      <div className={s.app}>
+        <Developer />
+      </div>
+    ),
+    icon: <UserOutlined />,
+  },
+];
 
 function App() {
   return (
-    <>
-      <div className={s.layout}>
-        <div className={s.app}>
-          <h2 className={s.title}>Teacher</h2>
-          <div className={s.phone}>
-            <Teacher />
-          </div>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Layout.Content className={s.content}>
+        <Tabs items={tabItems} style={{ height: "100%" }} centered />
+      </Layout.Content>
+      <Layout.Footer>
+        <div className={s["source-link"]}>
+          <Button
+            type="link"
+            size="small"
+            icon={<GithubFilled />}
+            href="https://github.com/mi-qacker/demo-edu"
+            target="_blank"
+          >
+            Source code
+          </Button>
         </div>
-        <div className={s.app}>
-          <h2 className={s.title}>Student</h2>
-          <div className={s.phone}>
-            <Student />
-          </div>
-        </div>
-        <div className={s.app}>
-          <h2 className={s.title}>Developer</h2>
-          <div className={s.phone}>
-            <Developer />
-          </div>
-        </div>
-      </div>
-      <div className={s["source-link"]}>
-        <Button
-          type="link"
-          size="small"
-          icon={<GithubFilled />}
-          href="https://github.com/mi-qacker/demo-edu"
-          target="_blank"
-        >
-          Source code
-        </Button>
-      </div>
-    </>
+      </Layout.Footer>
+    </Layout>
   );
 }
 
